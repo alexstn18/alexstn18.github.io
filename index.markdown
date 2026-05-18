@@ -8,7 +8,7 @@ title: About
   <div class="intro-card">
     <div class="intro-content">
       <div class="profile-image">
-        <img src="{{ '/assets/images/iwonderwhothisis.jpg' | relative_url }}" alt="Alex"/>
+        <img src="{{ '/assets/images/iwonderwhothisis.png' | relative_url }}" alt="Alex"/>
       </div>
       <div class="intro-text">
         <h1>Hey, I'm Alex!</h1>
