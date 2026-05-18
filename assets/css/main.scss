@@ -87,18 +87,14 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   font-family: var(--font-mono);
-  color: var(--color-accent);
+  color: var(--color-text) !important;
   text-decoration: none;
   margin-right: 3rem;
   letter-spacing: -0.02em;
 
-  &:before {
-    content: "~/ ";
-    color: var(--color-text-secondary);
-  }
-
   &:hover {
-    color: var(--color-accent-hover);
+    color: var(--color-accent) !important;
+    text-decoration: none;
   }
 }
 
@@ -718,11 +714,6 @@ body {
   color: var(--color-text);
   font-family: var(--font-mono);
   letter-spacing: -0.02em;
-
-  &:before {
-    content: "> ";
-    color: var(--color-accent);
-  }
 }
 
 .projects-grid {
@@ -948,7 +939,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: none !important;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -1095,7 +1086,7 @@ body {
 
   a {
     color: var(--color-accent);
-    text-decoration: none;
+    text-decoration: none !important;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
 
