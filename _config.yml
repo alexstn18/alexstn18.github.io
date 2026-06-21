@@ -18,9 +18,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Alex S.
+title: lex
 email: alexandrusana1@gmail.com
-description: I'm a third year Engine/Tools programmer student at Breda University of Applied Sciences.
+description: Alexandru Sana, 4th year programming student @ BUas | Portfolio/Personal website
 baseurl: "" # the subpath of your site, e.g. /blog
 domain: a-lex.dev
 url: https://a-lex.dev
@@ -68,7 +68,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "Alex S."
+      author: "lex"
   - scope:
       path: ""
       type: "projects"
