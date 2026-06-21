@@ -5,17 +5,18 @@
 
 /* ========== VARIABLES ========== */
 :root {
-  --color-bg: #0a0e17;
-  --color-bg-secondary: #141b2d;
-  --color-surface: #1a2332;
-  --color-border: #2a3548;
-  --color-text: #e6e8eb;
-  --color-text-secondary: #9ca3af;
-  --color-accent: #60a5fa;
-  --color-accent-hover: #3b82f6;
-  --color-code-bg: #0d1117;
+  --color-bg: #fff1e6;
+  --color-bg-secondary: #f0efeb;
+  --color-surface: #e8d5c4;
+  --color-border: #c9a882;
+  --color-text: #2d2013;
+  --color-text-secondary: #6b5744;
+  --color-accent: #cb997e;
+  --color-accent-hover: #b7895e;
+  --color-code-bg: #1e1e1e;
   --color-success: #10b981;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-mono: 'DM Mono', 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
 }
 
 /* ========== RESET & THEME OVERRIDES ========== */
@@ -43,27 +44,32 @@
 .highlighter-rouge .highlight,
 .highlight {
   background: var(--color-code-bg) !important;
-  color: var(--color-text) !important;
+  color: #e8d5c4 !important;  /* light warm color, not --color-text */
 }
 
 .highlight pre {
   background: var(--color-code-bg) !important;
 }
 
+.highlight span { color: revert; }
+
 body {
   padding-top: 70px;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
 }
 
 /* ========== NAVIGATION ========== */
 
 #navigationBar {
-  background: rgba(10, 14, 23, 0.95);
+  background: transparent;
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+  animation: nav-fade 0.6s ease both;
+
   padding: 1rem 0;
   padding-bottom: 0;
   position: fixed;
@@ -81,12 +87,22 @@ body {
     padding: 0 2rem 1rem !important;
     overflow: visible;
   }
+  &.scrolled {
+    background: rgba(237, 220, 210, 0.85);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes nav-fade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .site-title {
   font-size: 1.1rem;
   font-weight: 600;
-  font-family: var(--font-mono);
   color: var(--color-text) !important;
   text-decoration: none;
   margin-right: 3rem;
@@ -118,21 +134,30 @@ body {
     position: relative;
     padding-bottom: 1rem;
 
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 100%;
+      height: 2px;
+      background: var(--color-accent);
+      transition: right 0.25s ease;
+    }
+
     &:hover {
       color: var(--color-text);
+
+      &::after {
+        right: 0;
+      }
     }
 
     &.active {
       color: var(--color-accent);
 
-      &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
+      &::after {
         right: 0;
-        height: 2px;
-        background: var(--color-accent);
       }
     }
   }
@@ -146,7 +171,7 @@ body {
   a {
     display: flex;
     align-items: center;
-    opacity: 0.6;
+    opacity: 0.45;
     transition: opacity 0.2s, transform 0.2s;
 
     &:hover {
@@ -157,7 +182,7 @@ body {
     img, svg {
       width: 20px;
       height: 20px;
-      filter: brightness(0) invert(1);
+      filter: brightness(0);
     }
   }
 }
@@ -212,13 +237,83 @@ body {
   }
 }
 
+/* ========== HOME PAGE ========== */
+
+.home-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.home-intro {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--color-border);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.home-avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.home-intro-text {
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 580px;
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+
+      &:hover { border-bottom-color: var(--color-accent); }
+    }
+  }
+}
+
+.home-section {
+  margin-bottom: 4rem;
+}
+
+.home-section-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.5rem;
+}
+
 .intro-card {
   flex: 0 0 400px;
   width: 400px;
   position: sticky;
   top: 90px;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   border-radius: 8px;
   padding: 2rem;
   position: relative;
@@ -330,7 +425,6 @@ body {
     color: var(--color-text);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-family: var(--font-mono);
   }
 }
 
@@ -348,7 +442,6 @@ body {
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.1em;
-    font-family: var(--font-mono);
   }
 }
 
@@ -380,7 +473,6 @@ body {
     color: var(--color-text);
     font-weight: 500;
     white-space: nowrap;
-    font-family: var(--font-mono);
   }
 
   &:hover {
@@ -398,7 +490,6 @@ body {
 
   h2 {
     font-size: 1rem;
-    font-family: var(--font-mono);
     font-weight: 600;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
@@ -473,7 +564,6 @@ body {
     font-size: 0.8rem;
     color: var(--color-accent);
     font-weight: 600;
-    font-family: var(--font-mono);
     margin: 0 0 0.75rem 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -490,7 +580,6 @@ body {
     .meta-item-compact {
       font-size: 0.75rem;
       color: var(--color-text-secondary);
-      font-family: var(--font-mono);
 
       strong {
         color: var(--color-text);
@@ -504,6 +593,10 @@ body {
     color: var(--color-text-secondary);
     margin: 0 0 1rem 0;
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .project-responsibilities-compact {
@@ -516,7 +609,6 @@ body {
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.5rem;
-      font-family: var(--font-mono);
     }
 
     ul {
@@ -562,7 +654,6 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 3px;
   font-weight: 500;
-  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -576,7 +667,6 @@ body {
 
   h2 {
     font-size: 1rem;
-    font-family: var(--font-mono);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -657,7 +747,6 @@ body {
   font-size: 0.75rem;
   color: var(--color-text-secondary);
   margin-bottom: 1rem;
-  font-family: var(--font-mono);
 
   time {
     font-weight: 500;
@@ -712,7 +801,6 @@ body {
   font-weight: 700;
   margin-bottom: 2rem;
   color: var(--color-text);
-  font-family: var(--font-mono);
   letter-spacing: -0.02em;
 }
 
@@ -793,7 +881,6 @@ body {
 .meta-item {
   font-size: 0.85rem;
   color: var(--color-text-secondary);
-  font-family: var(--font-mono);
 
   strong {
     color: var(--color-text);
@@ -818,7 +905,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
-    font-family: var(--font-mono);
   }
 
   ul {
@@ -858,7 +944,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
-    font-family: var(--font-mono);
   }
 }
 
@@ -877,7 +962,6 @@ body {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
-  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -888,7 +972,6 @@ body {
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
-  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 1px solid transparent;
@@ -936,7 +1019,6 @@ body {
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
   border-radius: 4px;
-  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none !important;
@@ -990,7 +1072,6 @@ body {
   gap: 1rem;
   font-size: 0.85rem;
   color: var(--color-text-secondary);
-  font-family: var(--font-mono);
 
   time {
     font-weight: 500;
@@ -1046,6 +1127,8 @@ body {
   }
 
   pre {
+    color: #e8d5c4 !important;  /* replace var(--color-text) with this */
+    font-family: var(--font-mono);
     background: var(--color-code-bg);
     border: 1px solid var(--color-border);
     border-left: 3px solid var(--color-accent);
@@ -1060,19 +1143,17 @@ body {
       background: none !important;
       padding: 0 !important;
       border: none !important;
-      color: var(--color-text) !important;
-      font-family: var(--font-mono);
+      color: #e8d5c4 !important;  /* was var(--color-text) */
     }
   }
 
   :not(pre) > code {
-    background: rgba(96, 165, 250, 0.08);
+    background: rgba(203, 153, 126, 0.1);
     padding: 0.15em 0.45em;
     border-radius: 3px;
     font-size: 0.88em;
     color: var(--color-accent);
-    font-family: var(--font-mono);
-    border: 1px solid rgba(96, 165, 250, 0.2);
+    border: 1px solid rgba(203, 153, 126, 0.25);
     white-space: nowrap;
   }
 
@@ -1219,7 +1300,6 @@ body {
   h2 {
     font-size: 1.1rem;
     font-weight: 600;
-    font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-text);
@@ -1323,19 +1403,17 @@ body {
       background: none;
       padding: 0;
       border: none;
-      color: var(--color-text);
-      font-family: var(--font-mono);
+      color: #e8d5c4;  /* was var(--color-text) */
     }
   }
 
   :not(pre) > code {
-    background: rgba(96, 165, 250, 0.08);
+    background: rgba(203, 153, 126, 0.1);
     padding: 0.15em 0.45em;
     border-radius: 3px;
     font-size: 0.88em;
     color: var(--color-accent);
-    font-family: var(--font-mono);
-    border: 1px solid rgba(96, 165, 250, 0.2);
+    border: 1px solid rgba(203, 153, 126, 0.25);
     white-space: nowrap;
   }
 
@@ -1444,6 +1522,6 @@ body {
 .project-external-link svg {
   width: 14px;
   height: 14px;
-  filter: brightness(0) invert(1);
+  filter: brightness(0);
   display: block;
 }
