@@ -30,7 +30,6 @@ linkedin_username: aosana
 minima:
   social_links:
     linkedin: aosana
-    email: alexandrusana1@gmail.com
     github: lexULL
     itchdotio: alexstn
 
@@ -40,7 +39,6 @@ logo: /assets/images/logo.png
 social:
   links: 
     - https://www.linkedin.com/in/aosana
-    - mailto:alexandrusana1@gmail.com
     - https://github.com/lexULL
     - https://alexstn.itch.io/
 

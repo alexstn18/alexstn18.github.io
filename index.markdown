@@ -8,7 +8,7 @@ title: Home
   <section class="home-intro">
     <img src="{{ '/assets/images/iwonderwhothisis.png' | relative_url }}" alt="Alex" class="home-avatar"/>
     <div class="home-intro-text">
-      <h1>Hey, I'm Alex... and this is my website!</h1>
+      <h1>Hey, I'm lex... and this is my website!</h1>
       <p>I'm a fourth year Engine & Tools programming student at <a href="https://buas.nl/">Breda University of Applied Sciences</a>, passionate about building the technology that powers games, as well interested in exploring the technology behind older games. I'm also interested in graphics programming.</p>
     </div>
   </section>
